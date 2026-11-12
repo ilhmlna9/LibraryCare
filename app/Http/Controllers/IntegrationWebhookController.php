@@ -338,11 +338,11 @@ class IntegrationWebhookController extends Controller
                 . "🌐 *Lapor via Website:* Anda juga bisa lapor di website tanpa perlu registrasi/login, dan cukup klik tombol _Hubungkan ke Telegram_ untuk menerima update otomatis.";
         }
 
-        if (str_starts_with($text, '/help')) {
+        if (str_starts_with($text, '/help') || str_starts_with($text, '/bantuan')) {
             return "📖 *Panduan Bot LibraryCare:*\n\n"
                 . "• `/lapor Judul | Deskripsi` - Kirim laporan pengaduan baru langsung dari Telegram.\n"
                 . "• `/status NOMOR_TIKET` - Melacak progres tiket pengaduan (contoh: `/status LIB-2026-0001`).\n"
-                . "• `/start` - Mengetahui Chat ID Telegram Anda ({$chatId}).";
+                . "• `/start` - Mulai interaksi & mengetahui Chat ID Anda ({$chatId}).";
         }
 
         // Handler untuk membuat laporan baru via Telegram: /lapor Judul | Deskripsi
