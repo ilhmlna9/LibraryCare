@@ -44,31 +44,21 @@ class WhatsAppService
             return ['success' => false, 'status' => 'skipped', 'message' => 'Nomor WhatsApp pengunjung tidak tersedia'];
         }
 
-        $trackUrl = url('/track?ticket=' . urlencode($complaint->ticket_number));
+        $trackUrl = 'http://localhost:8000/track?ticket=' . urlencode($complaint->ticket_number);
 
-        // Format pesan yang ramah untuk WhatsApp (bebas link url sensitif agar lolos filter Meta)
-        if ($this->gatewayProvider === 'cloud_api') {
-            $message = "Halo *{$complaint->visitor_name}*,\n\n"
-                . "Laporan Anda telah berhasil kami terima di sistem *LibraryCare* Layanan Perpustakaan.\n\n"
-                . "🎫 *Kode Tiket:* `{$complaint->ticket_number}`\n"
-                . "📌 *Judul:* {$complaint->title}\n"
-                . "📂 *Kategori:* {$complaint->category->name}\n"
-                . "⏱️ *Status:* Menunggu Peninjauan Petugas\n\n"
-                . "Ketik *STATUS {$complaint->ticket_number}* untuk mengecek perkembangan penanganan laporan Anda.\n\n"
-                . "_Tim Layanan & Manajemen Perpustakaan_";
-        } else {
-            $message = "Halo *{$complaint->visitor_name}*,\n\n"
-                . "Terima kasih telah menyampaikan aspirasi Anda. Laporan keluhan/saran Anda telah berhasil kami terima dan tercatat di sistem *LibraryCare* Layanan Perpustakaan.\n\n"
-                . "🎫 *Kode Tiket Anda:* `{$complaint->ticket_number}`\n"
-                . "📌 *Judul Laporan:* {$complaint->title}\n"
-                . "📂 *Kategori:* {$complaint->category->name}\n"
-                . "⏱️ *Status:* Menunggu Peninjauan Petugas\n\n"
-                . "Setiap pembaruan penanganan dari petugas akan kami infokan kembali melalui pesan ini. Anda juga dapat memantau linimasa progres penanganan secara langsung melalui link berikut:\n"
-                . "👉 {$trackUrl}\n\n"
-                . "Terima kasih atas partisipasi Anda dalam meningkatkan kualitas fasilitas dan kenyamanan perpustakaan.\n\n"
-                . "Salam hangat,\n"
-                . "_Tim Layanan & Manajemen Perpustakaan_";
-        }
+        // Format pesan yang ramah untuk WhatsApp
+        $message = "Halo *{$complaint->visitor_name}*,\n\n"
+            . "Terima kasih telah menyampaikan aspirasi Anda. Laporan keluhan/saran Anda telah berhasil kami terima dan tercatat di sistem *LibraryCare* Layanan Perpustakaan.\n\n"
+            . "🎫 *Kode Tiket Anda:* `{$complaint->ticket_number}`\n"
+            . "📌 *Judul Laporan:* {$complaint->title}\n"
+            . "📂 *Kategori:* {$complaint->category->name}\n"
+            . "⏱️ *Status:* ⏳ Menunggu Peninjauan Petugas\n\n"
+            . "Anda dapat memantau linimasa progres penanganan laporan di website perpustakaan:\n"
+            . "👉 {$trackUrl}\n\n"
+            . "Atau cukup balas pesan ini dengan ketik: *STATUS {$complaint->ticket_number}*\n\n"
+            . "Terima kasih atas partisipasi Anda dalam meningkatkan kualitas fasilitas dan kenyamanan perpustakaan.\n\n"
+            . "Salam hangat,\n"
+            . "_Tim Layanan & Manajemen Perpustakaan_";
 
         return $this->sendMessage($complaint->visitor_phone, $message, $complaint->id);
     }
