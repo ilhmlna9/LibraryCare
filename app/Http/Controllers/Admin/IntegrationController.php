@@ -169,7 +169,7 @@ class IntegrationController extends Controller
 
         $sampleData = [
             'visitor_name' => 'Pengunjung Simulasi ' . rand(10, 99),
-            'visitor_email' => 'simulasi' . rand(10, 99) . '@student.ac.id',
+            'visitor_email' => 'pengunjung' . rand(10, 99) . '@gmail.com',
             'visitor_phone' => '0812' . rand(10000000, 99999999),
             'category_name' => 'Fasilitas & Ruangan',
             'title' => 'Pengaduan Uji Integrasi Google Forms #' . rand(100, 999),

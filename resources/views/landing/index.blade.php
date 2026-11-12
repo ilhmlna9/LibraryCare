@@ -362,7 +362,7 @@
                             Alamat Email <span class="text-[11px] font-normal text-slate-500">(Opsional)</span>
                         </label>
                         <input type="email" id="visitor_email" name="visitor_email" value="{{ old('visitor_email') }}"
-                            placeholder="nama@student.ac.id (opsional)"
+                            placeholder="nama@email.com (opsional)"
                             class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all @error('visitor_email') border-rose-500 ring-1 ring-rose-500 @enderror">
                         @error('visitor_email')
                             <p class="text-[11px] text-rose-500 mt-1">{{ $message }}</p>
@@ -496,10 +496,10 @@
             <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-5 bg-slate-50/50 dark:bg-navy-950">
                 <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
                     <i data-lucide="help-circle" class="w-5 h-5 text-teal-500 shrink-0"></i>
-                    Apakah saya harus memiliki akun untuk membuat laporan?
+                    Apakah pengunjung harus mendaftar atau login untuk melapor?
                 </h3>
                 <p class="text-sm text-slate-600 dark:text-slate-400 mt-2.5 pl-7 leading-relaxed">
-                    Tidak wajib. Pengunjung umum atau mahasiswa tetap dapat membuat laporan tanpa login dan melacaknya menggunakan nomor tiket. Namun dengan mendaftar akun, Anda dapat melihat riwayat semua laporan dan membalas tanggapan admin lebih mudah.
+                    Tidak perlu. Seluruh pengunjung dan masyarakat umum dapat langsung membuat laporan tanpa perlu mendaftar atau login, dan dapat memantau progres penanganan secara transparan menggunakan Nomor Tiket resmi yang diterbitkan sistem.
                 </p>
             </div>
 
@@ -507,10 +507,10 @@
             <div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-5 bg-slate-50/50 dark:bg-navy-950">
                 <h3 class="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
                     <i data-lucide="help-circle" class="w-5 h-5 text-teal-500 shrink-0"></i>
-                    Bagaimana cara menghubungkan notifikasi Telegram?
+                    Bagaimana cara melacak laporan lewat Telegram?
                 </h3>
                 <p class="text-sm text-slate-600 dark:text-slate-400 mt-2.5 pl-7 leading-relaxed">
-                    Buka aplikasi Telegram Anda, cari bot resmi kami <code>{{ $settings['library_telegram'] }}</code>, ketik <code>/start</code> untuk memperoleh Chat ID Anda, kemudian simpan ID tersebut pada menu Profil Akun di website LibraryCare.
+                    Buka bot Telegram resmi kami <code>{{ $settings['library_telegram'] }}</code>, ketik <code>/status NOMOR_TIKET</code> (contoh: <code>/status LIB-2026-0001</code>) atau klik tombol 'Hubungkan ke Telegram' pada halaman pelacakan tiket.
                 </p>
             </div>
 
@@ -597,7 +597,7 @@
             <!-- 1. Nama Pengunjung -->
             <div>
                 <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                    Nama Pengunjung / Mahasiswa
+                    Nama Lengkap Pengunjung / Pemustaka
                 </label>
                 <input type="text" id="wa-input-name" 
                     value="{{ Auth::check() ? Auth::user()->name : '' }}" 

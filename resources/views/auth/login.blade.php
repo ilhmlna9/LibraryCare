@@ -16,7 +16,7 @@
             </button>
         </p>
         <p class="text-[10px] text-slate-500 dark:text-slate-400">
-            Pengunjung/Mahasiswa tidak perlu login untuk menyampaikan laporan dan dapat langsung melacak menggunakan Nomor Tiket.
+            Pengunjung dan masyarakat umum tidak perlu login untuk menyampaikan laporan dan dapat langsung melacak progres menggunakan Nomor Tiket.
         </p>
     </div>
 

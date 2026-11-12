@@ -42,14 +42,14 @@ class LandingController extends Controller
         ];
 
         $settings = [
-            'library_name' => IntegrationSetting::get('LIBRARY_NAME', 'Perpustakaan Utama Kampus'),
-            'library_email' => IntegrationSetting::get('LIBRARY_EMAIL', 'library@university.ac.id'),
+            'library_name' => IntegrationSetting::get('LIBRARY_NAME', 'Perpustakaan Umum Daerah'),
+            'library_email' => IntegrationSetting::get('LIBRARY_EMAIL', 'layanan@perpustakaan.go.id'),
             'library_phone' => IntegrationSetting::get('LIBRARY_PHONE', '+62 21 7890 1234'),
             'library_whatsapp' => IntegrationSetting::get('LIBRARY_WHATSAPP', '088212093276'),
             'library_telegram' => IntegrationSetting::get('LIBRARY_TELEGRAM_BOT', '@LibraryCare_bot'),
             'google_forms_url' => IntegrationSetting::get('GOOGLE_FORMS_URL', 'https://docs.google.com/forms/d/e/1FAIpQLSdEnYHc7Nc5HIEGzTOdJOkVMlbV3bS7DkHlXOvudnl8GKg4wQ/viewform'),
             'google_forms_api_key' => IntegrationSetting::get('GOOGLE_FORMS_API_KEY', 'lc_gform_paIVqyulDQlJbnyyeb88kE7F'),
-            'library_address' => IntegrationSetting::get('LIBRARY_ADDRESS', 'Gedung Rektorat Lt. 2-3, Kampus Terpadu, Jl. Pendidikan No. 45'),
+            'library_address' => IntegrationSetting::get('LIBRARY_ADDRESS', 'Gedung Layanan Pemustaka, Jl. Pemuda No. 45'),
             'library_hours' => IntegrationSetting::get('LIBRARY_OPERATING_HOURS', 'Senin - Jumat: 08.00 - 20.00 WIB | Sabtu: 08.30 - 15.00 WIB'),
         ];
 

@@ -80,9 +80,9 @@
             <!-- Question 1: Nama Lengkap -->
             <div class="bg-white dark:bg-navy-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-2 focus-within:border-purple-500 transition-all">
                 <label for="gform_visitor_name" class="block text-sm font-bold text-slate-800 dark:text-slate-200">
-                    Nama Lengkap Mahasiswa / Pengunjung <span class="text-rose-500">*</span>
+                    Nama Lengkap Pengunjung / Pemustaka <span class="text-rose-500">*</span>
                 </label>
-                <p class="text-[11px] text-slate-400">Tuliskan nama Anda sesuai kartu identitas perpustakaan atau KTM.</p>
+                <p class="text-[11px] text-slate-400">Tuliskan nama Anda sesuai kartu identitas atau kartu anggota perpustakaan.</p>
                 <input type="text" id="gform_visitor_name" name="visitor_name" required placeholder="Jawaban Anda"
                     class="w-full pt-2 pb-1 text-sm border-b-2 border-slate-200 dark:border-slate-700 focus:border-purple-600 dark:focus:border-purple-400 bg-transparent text-slate-900 dark:text-white outline-none transition-colors">
             </div>
@@ -93,7 +93,7 @@
                     Alamat Email Aktif <span class="text-rose-500">*</span>
                 </label>
                 <p class="text-[11px] text-slate-400">Email untuk konfirmasi dan tanggapan dari pengelola perpustakaan.</p>
-                <input type="email" id="gform_visitor_email" name="visitor_email" required placeholder="contoh@kampus.ac.id"
+                <input type="email" id="gform_visitor_email" name="visitor_email" required placeholder="nama@email.com"
                     class="w-full pt-2 pb-1 text-sm border-b-2 border-slate-200 dark:border-slate-700 focus:border-purple-600 dark:focus:border-purple-400 bg-transparent text-slate-900 dark:text-white outline-none transition-colors">
             </div>
 

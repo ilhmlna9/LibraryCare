@@ -1,29 +1,24 @@
-# LibraryCare – Sistem CRM Layanan Perpustakaan
+# LibraryCare – Sistem CRM Layanan Perpustakaan Umum
 
 > **Judul Project Tugas Akhir / Mata Kuliah:**  
-> *"Rancang Bangun Sistem Customer Relationship Management (CRM) Berbasis Web untuk Pengelolaan Keluhan dan Saran Pengunjung Perpustakaan Terintegrasi WhatsApp, Telegram, dan Google Forms."*  
+> *"Rancang Bangun Sistem Customer Relationship Management (CRM) Berbasis Web untuk Pengelolaan Pengaduan dan Saran Pengunjung Perpustakaan Umum Terintegrasi WhatsApp, Telegram, dan Google Forms."*  
 > Program Studi S1 Sistem Informasi.
 
 ---
 
 ## 📖 1. Tentang LibraryCare
 
-**LibraryCare** adalah aplikasi Customer Relationship Management (CRM) berbasis web modern yang dirancang khusus untuk meningkatkan kualitas layanan perpustakaan perguruan tinggi. Aplikasi ini memusatkan seluruh kritik, keluhan fasilitas, dan usulan koleksi buku dari pengunjung melalui berbagai saluran (Formulir Website, WhatsApp, Telegram Bot, dan Google Forms) ke dalam satu dashboard admin terpadu yang transparan, terukur, dan akuntabel.
+**LibraryCare** adalah aplikasi Customer Relationship Management (CRM) berbasis web modern yang dirancang khusus untuk meningkatkan kualitas layanan **Perpustakaan Umum**. Aplikasi ini memusatkan seluruh kritik, keluhan fasilitas, dan usulan koleksi buku dari pengunjung / masyarakat umum melalui berbagai saluran (Formulir Website, WhatsApp, Telegram Bot, dan Google Forms) ke dalam satu dashboard admin terpadu yang transparan, terukur, dan akuntabel.
 
 ### 🌟 Fitur Utama
 
-#### A. Pengunjung / Mahasiswa (Visitor)
-1. **Landing Page Modern**: Desain minimalis dan profesional dengan penjelasan alur layanan, kartu kategori keluhan, FAQ, jam operasional perpustakaan, serta form interaktif.
-2. **Formulir Pengaduan Multi-Media**: Pengunjung dapat mengisi nama, email, nomor WhatsApp, kategori, judul keluhan, deskripsi, dan mengunggah lampiran foto/dokumen (JPG, PNG, PDF maks. 5MB).
-3. **Penerbitan Nomor Tiket Otomatis**: Format standar `LIB-YYYY-XXXX` (contoh: `LIB-2026-0001`) langsung digenerate begitu formulir berhasil dikirim.
-4. **Pelacakan Tiket (Tracking Status)**: Pengunjung dapat melacak progres penanganan keluhan secara publik tanpa harus login.
-5. **Portal Pengunjung Terdaftar**:
-   - Pendaftaran & autentikasi akun mahasiswa.
-   - Dashboard ringkasan pengaduan (Total, Menunggu, Diproses, Selesai).
-   - Riwayat pengaduan dengan filter status dan pencarian.
-   - Forum percakapan / diskusi dua arah dengan admin perpustakaan.
-   - Penilaian kepuasan pengunjung (*Customer Satisfaction Rating* 1–5 bintang beserta ulasan).
-   - Penautan akun Telegram dengan memasukkan Chat ID untuk menerima notifikasi otomatis dari bot.
+#### A. Pengunjung / Pemustaka Umum (Tanpa Perlu Login)
+1. **Layanan Terbuka Tanpa Beban Login**: Seluruh masyarakat dan pengunjung dapat langsung menyampaikan aspirasi atau aduan tanpa kewajiban membuat akun atau login.
+2. **Landing Page Modern**: Desain minimalis dan profesional dengan penjelasan alur layanan, kartu kategori keluhan, FAQ, jam operasional perpustakaan, serta form interaktif.
+3. **Formulir Pengaduan Multi-Media**: Pengunjung dapat mengisi nama, email, nomor kontak, kategori, judul keluhan, deskripsi, dan mengunggah lampiran foto bukti/dokumen (JPG, PNG, PDF maks. 5MB).
+4. **Penerbitan Nomor Tiket Otomatis**: Format standar `LIB-YYYY-XXXX` (contoh: `LIB-2026-0001`) langsung digenerate begitu formulir berhasil dikirim.
+5. **Pelacakan Tiket Terbuka (Public Tracking)**: Pengunjung dapat melacak progres penanganan keluhan secara publik kapan saja hanya dengan memasukkan Nomor Tiket di menu pelacakan (`/track`).
+6. **Penilaian Kepuasan Layanan (CSAT)**: Pengunjung dapat memberikan rating bintang 1–5 beserta ulasan setelah laporan dinyatakan selesai oleh petugas.
 
 #### B. Petugas / Administrator Perpustakaan (Admin)
 1. **Dashboard Statistik Eksekutif**:
@@ -153,14 +148,13 @@ Tabel yang dibuat melalui migrasi resmi Laravel:
 
 ---
 
-## 🔑 5. Akun Demo untuk Pengujian
+## 🔑 5. Akun Login Petugas (Khusus Admin Perpustakaan)
 
-Pada halaman login (`/login`), sistem telah menyediakan tombol **Quick Fill** untuk mengisi akun uji coba secara instan:
+Pengunjung dan masyarakat umum **tidak perlu login atau registrasi akun** (cukup mengisi formulir terbuka dan melacak progres via Nomor Tiket). Login hanya diperuntukkan bagi Administrator & Staf Perpustakaan:
 
 | Role | Email | Password | Hak Akses |
 |---|---|---|---|
-| **Administrator** | `admin@librarycare.id` | `admin123` | Mengelola dashboard, seluruh keluhan, ubah status, balas pesan, kelola kategori, dan atur API. |
-| **Pengunjung (Mahasiswa)** | `mahasiswa@librarycare.id` | `password123` | Melihat dashboard mahasiswa, kirim pengaduan, riwayat tiket, balas pesan admin, beri ulasan bintang. |
+| **Administrator** | `admin@librarycare.id` | `admin123` | Mengelola dashboard, seluruh keluhan pengaduan, ubah status penanganan, balas pesan, kelola master kategori, dan pengaturan API. |
 
 ---
 
