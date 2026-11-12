@@ -75,6 +75,12 @@
                         </div>
                     </div>
 
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Webhook URL WhatsApp (Fonnte / Meta)</label>
+                        <input type="text" value="{{ url('/integration/whatsapp/webhook') }}" readonly
+                            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono text-[11px] outline-none">
+                    </div>
+
                     <div class="pt-1">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="hidden" name="whatsapp_simulation_mode" value="false">
@@ -123,6 +129,12 @@
                         <input type="text" name="telegram_admin_chat_id" value="{{ $settings['TELEGRAM_ADMIN_CHAT_ID'] }}" placeholder="Contoh: 987654321 atau -1001234567"
                             class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-white font-mono outline-none focus:ring-1 focus:ring-teal-500">
                         <p class="text-[10px] text-slate-400 mt-1">Tujuan notifikasi laporan baru untuk staf admin.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Webhook URL Telegram Bot</label>
+                        <input type="text" value="{{ url('/integration/telegram/webhook') }}" readonly
+                            class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono text-[11px] outline-none">
                     </div>
 
                     <div class="pt-2">
@@ -458,6 +470,18 @@ function onFormSubmit(e) {
             <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
                 <p class="font-bold text-slate-800 dark:text-white mb-1">Langkah 3: Pasang Trigger onFormSubmit</p>
                 <p>Pada Apps Script, klik ikon jam <strong>Triggers (Pemicu)</strong> di sidebar kiri &rarr; Klik <strong>Add Trigger</strong> &rarr; Pilih fungsi <code>onFormSubmit</code> &rarr; Event type pilih <strong>On form submit</strong> &rarr; Simpan.</p>
+            </div>
+
+            <div class="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 dark:border-emerald-800">
+                <p class="font-bold text-emerald-800 dark:text-emerald-300 mb-1">Langkah 4: Atur Pesan Konfirmasi Google Forms (Link Pelacakan Live)</p>
+                <p class="mb-2">Agar pengunjung yang mengisi Google Forms mendapatkan tautan pelacakan langsung ke website live, buka Google Forms Anda &rarr; Klik tab <strong>Setelan (Settings)</strong> &rarr; Buka accordion <strong>Presentasi (Presentation)</strong> &rarr; Pada <strong>Pesan konfirmasi (Confirmation message)</strong>, klik <strong>Edit</strong> dan masukkan teks berikut:</p>
+                <div class="p-3 bg-slate-950 rounded-lg text-emerald-300 font-mono text-[10.5px] select-all leading-relaxed">
+                    Terima kasih atas laporan Anda!<br><br>
+                    Keluhan Anda telah otomatis diteruskan ke sistem CRM LibraryCare.<br>
+                    Nomor tiket resmi pelacakan telah kami kirimkan langsung ke nomor WhatsApp Anda.<br><br>
+                    Pantau progres laporan Anda di website:<br>
+                    <span class="text-white underline">{{ url('/track') }}</span>
+                </div>
             </div>
         </div>
 

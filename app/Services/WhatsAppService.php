@@ -44,7 +44,7 @@ class WhatsAppService
             return ['success' => false, 'status' => 'skipped', 'message' => 'Nomor WhatsApp pengunjung tidak tersedia'];
         }
 
-        $trackUrl = 'http://localhost:8000/track?ticket=' . urlencode($complaint->ticket_number);
+        $trackUrl = url('/track?ticket=' . urlencode($complaint->ticket_number));
 
         // Format pesan yang ramah untuk WhatsApp
         $message = "Halo *{$complaint->visitor_name}*,\n\n"

@@ -41,13 +41,14 @@
    - Tambah, edit, dan hapus kategori pengaduan dengan ikon Lucide dan warna aksen.
    - Fitur toggle aktivasi/nonaktifkan kategori.
    - Perlindungan integritas referensi: kategori yang memiliki laporan tidak dapat dihapus sembarangan.
-4. **Manajemen Data Pengunjung**:
-   - Direktori seluruh pengguna terdaftar, status penautan Telegram, dan total tiket yang pernah diajukan.
-   - Halaman detail profil dan seluruh histori pengaduan mahasiswa bersangkutan.
+4. **Tanggapan Interaktif & Notifikasi Real-Time**:
+   - Kirim tanggapan resmi dan penjelasan perbaikan langsung ke pelapor.
+   - Pilihan kirim notifikasi WhatsApp otomatis ke nomor pelapor via Fonnte Gateway.
+   - Pengunjung dapat memantau linimasa progres penanganan dan memberikan rating ulasan kepuasan layanan bintang 1–5.
 5. **Pengaturan Integrasi Multi-Channel**:
-   - WhatsApp Business Cloud API (Phone Number ID, Access Token, Mode Simulasi).
-   - Telegram Bot API (Bot Token, Admin Chat ID, Mode Simulasi, Tool uji coba pesan bot).
-   - Google Forms & Sheets (Webhook URL, X-API-KEY Autentikasi, Generator token, dan Simulator pengaduan).
+   - WhatsApp Gateway (Fonnte Scan QR & Meta Cloud API, Mode Simulasi, Tool uji coba pesan WA).
+   - Telegram Bot API (@LibraryCare_bot, Bot Token, Admin Chat ID, Webhook otomatis).
+   - Google Forms & Sheets (Webhook URL, X-API-KEY Autentikasi, Apps Script, Panduan pesan konfirmasi).
    - Audit trail log pengiriman notifikasi (*Notification Logs*).
 
 #### C. Antarmuka UI/UX Modern & Aksesibilitas
@@ -62,14 +63,15 @@
 
 | Komponen | Teknologi |
 |---|---|
-| **Backend** | Laravel 11 / 13 (PHP 8.2+ / PHP 8.5) – Arsitektur MVC |
-| **Database** | MySQL (XAMPP / Laragon) |
+| **Backend** | Laravel 11 / 13 (PHP 8.2+ / PHP 8.4) – Arsitektur MVC |
+| **Database** | MySQL (MariaDB Alwaysdata Cloud & XAMPP) |
+| **Hosting Live** | Alwaysdata Cloud Hosting (https://librarycare.alwaysdata.net) |
 | **Frontend** | Blade Templating, Tailwind CSS, JavaScript |
 | **Ikon** | Lucide Icons |
 | **Grafik** | Chart.js |
 | **Animasi** | AOS (Animate On Scroll) & CSS Transition |
-| **Integrasi 1** | WhatsApp Business Cloud API (Meta Graph API) |
-| **Integrasi 2** | Telegram Bot API |
+| **Integrasi 1** | WhatsApp Gateway (Fonnte API & Meta Cloud API) |
+| **Integrasi 2** | Telegram Bot API (@LibraryCare_bot) |
 | **Integrasi 3** | Google Forms & Google Sheets via Google Apps Script Webhook |
 
 ---
@@ -162,40 +164,48 @@ Pada halaman login (`/login`), sistem telah menyediakan tombol **Quick Fill** un
 
 ---
 
-## 📱 6. Panduan Konfigurasi Integrasi API
+## 📱 6. Panduan Konfigurasi Integrasi API (Sistem Berjalan Saat Ini)
 
-### A. WhatsApp Business Cloud API
-1. Masuk ke dashboard admin &rarr; menu **Integrasi API**.
-2. Masukkan **Phone Number ID** dan **Access Token** dari Meta for Developers.
-3. **Mode Simulasi**: Jika Anda belum memiliki akun Meta Cloud API berbayar, biarkan opsi **"Aktifkan Mode Simulasi"** tercentang. Sistem akan mencatat pesan ke tabel `notification_logs` dengan status `simulated` sehingga seluruh alur kerja CRM tetap dapat diuji dan didemonstrasikan 100% tanpa error.
-4. Klik tombol **"Uji Kirim Pesan WA"** untuk mencoba simulator pengiriman pesan.
+Domain Live Produksi: **`https://librarycare.alwaysdata.net`**
 
-### B. Telegram Bot API
-1. Buat bot Telegram baru melalui [@BotFather](https://t.me/BotFather) di Telegram untuk mendapatkan **Bot Token**.
-2. Masukkan Bot Token dan **Admin Chat ID** pada menu Integrasi API.
-3. Untuk pengunjung yang ingin menerima notifikasi:
-   - Pengunjung membuka bot Telegram resmi perpustakaan dan mengetik `/start`.
-   - Bot akan membalas dengan **Chat ID** pengunjung.
-   - Pengunjung menyalin Chat ID tersebut ke menu **Profil Saya** di website LibraryCare.
-4. Saat status laporan diubah oleh admin, notifikasi otomatis dikirimkan ke Telegram pengunjung.
+### A. WhatsApp Gateway Bot (Fonnte & Meta Cloud API)
+Sistem LibraryCare mendukung dua metode gateway WhatsApp:
+1. **Fonnte (Metode Utama - Scan QR No. HP Pribadi)**:
+   - Masuk ke dashboard admin &rarr; menu **Integrasi API**.
+   - Pilih metode **Fonnte**.
+   - Masukkan **Token Fonnte** yang diperoleh dari dashboard [fonnte.com](https://fonnte.com).
+   - Pastikan nomor WhatsApp Anda sudah terhubung (status *Connected* di Fonnte).
+   - Atur Webhook di Fonnte ke: `https://librarycare.alwaysdata.net/integration/whatsapp/webhook`
+   - Pelapor dapat mengecek status tiket kapan saja lewat WhatsApp dengan mengetik:  
+     `STATUS LIB-2026-XXXX`
+2. **Meta WhatsApp Cloud API (Alternatif)**:
+   - Masukkan **Phone Number ID** dan **Permanent Access Token** dari Meta for Developers.
+3. **Mode Simulasi**: Dapat diaktifkan jika ingin mencatat pesan ke database tanpa memanggil API pihak ke-3.
+
+### B. Telegram Bot API (@LibraryCare_bot)
+1. Bot resmi: **[@LibraryCare_bot](https://t.me/LibraryCare_bot)**.
+2. Webhook Telegram aktif terhubung ke:  
+   `https://librarycare.alwaysdata.net/integration/telegram/webhook`
+3. Pengunjung dapat:
+   - Mengetik `/start` untuk melihat panduan dan memperoleh Chat ID.
+   - Mengetik `/lapor Judul | Keluhan Anda` untuk mengirim keluhan langsung via Telegram.
+   - Mengetik `/status LIB-2026-XXXX` untuk melacak status penanganan tiket secara instan.
 
 ### C. Google Forms & Google Sheets Webhook
-LibraryCare menyediakan endpoint aman untuk menerima data dari Google Forms secara otomatis:
-- **Endpoint Webhook**: `http://localhost/LibraryCare/public/integration/google-forms`
-- **Header Autentikasi**: `X-API-KEY: {KUNCI_API_ANDA}`
-- **Formulir Terintegrasi Langsung (Built-in Simulator)**: Akses langsung di `http://localhost/LibraryCare/public/google-forms`
+LibraryCare menyediakan integrasi otomatis dengan formulir Google Forms resmi:
+- **URL Formulir**: Tersedia di landing page atau langsung di Google Forms.
+- **Endpoint Webhook Live**: `https://librarycare.alwaysdata.net/integration/google-forms`
+- **Header Autentikasi**: `X-API-KEY: {KUNCI_API_DARI_DASHBOARD_ADMIN}`
 
-Formulir ini dapat diakses langsung oleh pengunjung dan mahasiswa dari tombol **Google Forms** di landing page. Saat form disubmit, JavaScript client melakukan POST ke Webhook API dengan `X-API-KEY` dan langsung memunculkan tiket resmi secara real-time!
-
-#### Cara Pemasangan di Google Sheets Nyata (Produksi):
-1. Buat formulir di Google Forms dengan pertanyaan: *Nama Lengkap*, *Email*, *Nomor WhatsApp*, *Kategori*, *Judul Laporan*, dan *Deskripsi*.
-2. Arahkan jawaban formulir ke Google Sheets.
-3. Di Google Sheets, buka menu **Extensions &rarr; Apps Script**.
-4. Masukkan kode Google Apps Script berikut:
+#### 1. Cara Pemasangan di Google Sheets (Apps Script):
+1. Buka Google Sheets yang menampung respon Google Forms Anda.
+2. Klik menu **Extensions &rarr; Apps Script**.
+3. Masukkan kode berikut:
 
 ```javascript
 function onFormSubmit(e) {
-  var ENDPOINT_URL = "http://YOUR_DOMAIN/integration/google-forms"; // Sesuaikan dengan domain / ngrok Anda
+  // Endpoint Webhook Live LibraryCare
+  var ENDPOINT_URL = "https://librarycare.alwaysdata.net/integration/google-forms";
   var API_KEY = "KUNCI_API_DARI_DASHBOARD_ADMIN";
 
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
@@ -229,8 +239,25 @@ function onFormSubmit(e) {
   }
 }
 ```
-5. Simpan dan tambahkan trigger pemicu `On form submit`.
-6. Setiap kali ada pengisian Google Forms, sistem LibraryCare akan langsung membuat tiket pengaduan baru dan mengirimkan peringatan ke admin!
+4. Klik menu **Pemicu (Triggers)** &rarr; **Add Trigger** &rarr; Event type pilih **On form submit** &rarr; Simpan.
+
+#### 2. Cara Mengubah Pesan Konfirmasi Google Forms (Link Pelacakan Live):
+Agar setelah pengunjung mengirim respon Google Forms muncul tautan pelacakan resmi ke website live (bukan localhost):
+1. Buka Google Forms Anda di browser.
+2. Klik tab **Setelan (Settings)** di bagian atas.
+3. Klik bagian **Presentasi (Presentation)**.
+4. Pada **Pesan konfirmasi (Confirmation message)**, klik **Edit**.
+5. Ganti teks dengan:
+```text
+Terima kasih atas laporan Anda!
+
+Keluhan Anda telah otomatis diteruskan ke sistem CRM LibraryCare.
+Nomor tiket resmi pelacakan telah kami kirimkan langsung ke nomor WhatsApp Anda.
+
+Pantau progres laporan Anda di website:
+https://librarycare.alwaysdata.net/track
+```
+6. Klik **Simpan (Save)**. Sekarang seluruh pengunjung akan otomatis diarahkan ke URL live `https://librarycare.alwaysdata.net/track`!
 
 ---
 

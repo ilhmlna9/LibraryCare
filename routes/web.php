@@ -83,9 +83,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
     Route::patch('/categories/{id}/toggle', [CategoryController::class, 'toggle'])->name('categories.toggle');
 
-    // Visitor Management
-    Route::get('/visitors', [VisitorController::class, 'index'])->name('visitors.index');
-    Route::get('/visitors/{id}', [VisitorController::class, 'show'])->name('visitors.show');
+    // Visitor Management (Dinonaktifkan - dialihkan ke daftar pengaduan)
+    Route::get('/visitors', function () {
+        return redirect()->route('admin.complaints.index');
+    })->name('visitors.index');
+    Route::get('/visitors/{id}', function () {
+        return redirect()->route('admin.complaints.index');
+    })->name('visitors.show');
 
     // Integrations & Notification Settings
     Route::get('/integrations', [IntegrationController::class, 'index'])->name('integrations.index');
