@@ -18,7 +18,7 @@ echo [2/2] Menjalankan Cloudflare Tunnel...
 echo.
 echo ============================================================
 echo  TUNGGU BEBERAPA DETIK SAMPAI MUNCUL LINK https://...trycloudflare.com
-echo  Salin link tersebut untuk Webhook WhatsApp & Telegram!
+echo  Salin link tersebut untuk Webhook WhatsApp dan Telegram!
 echo ============================================================
 echo.
 
