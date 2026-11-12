@@ -1,0 +1,14 @@
+[phases.setup]
+pkgs = [
+    'php82',
+    'php82Packages.composer',
+    'nodejs_20',
+    'npm'
+]
+
+[phases.build]
+cmds = [
+    'composer install --no-dev --optimize-autoloader --no-interaction',
+    'npm install',
+    'npm run build'
+]
