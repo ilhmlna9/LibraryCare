@@ -156,10 +156,6 @@
                     <span class="sidebar-text">Kategori Keluhan</span>
                 </a>
 
-                <a href="{{ route('admin.visitors.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors {{ request()->routeIs('admin.visitors.*') ? 'bg-teal-600 text-white shadow-sm' : 'hover:bg-slate-800/80 text-slate-300 hover:text-white' }}">
-                    <i data-lucide="users" class="w-5 h-5 shrink-0"></i>
-                    <span class="sidebar-text">Data Pengunjung</span>
-                </a>
 
                 <div class="sidebar-text px-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wider pt-4 mb-2">
                     Konfigurasi & Saluran
