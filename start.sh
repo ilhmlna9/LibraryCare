@@ -22,3 +22,4 @@ php artisan storage:link || true
 
 echo "=== Menjalankan Web Server LibraryCare ==="
 exec php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+
