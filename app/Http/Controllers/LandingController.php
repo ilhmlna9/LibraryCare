@@ -111,15 +111,8 @@ class LandingController extends Controller
             'notes' => 'Laporan berhasil dibuat melalui formulir website.',
         ]);
 
-        // Kirim notifikasi WhatsApp ke pengunjung jika ada nomor
-        if (!empty($complaint->visitor_phone)) {
-            $this->whatsAppService->sendTicketCreatedNotification($complaint);
-        }
-
-        // Kirim notifikasi Telegram ke pengunjung jika mengisi Chat ID
-        if (!empty($complaint->visitor_telegram)) {
-            $this->telegramService->notifyVisitorNewComplaint($complaint);
-        }
+        // Murni masuk ke database sistem CRM admin (tanpa notifikasi eksternal saat kirim form web)
+        // Nomor tiket langsung ditampilkan di layar pelacakan pengunjung (/track)
 
         return redirect()->route('complaints.track', ['ticket' => $ticketNumber])
             ->with('success', "Laporan Anda berhasil dikirim! Simpan Nomor Tiket Anda: {$ticketNumber}");

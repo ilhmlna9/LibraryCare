@@ -374,7 +374,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label for="visitor_phone" class="block text-xs font-bold text-slate-700 dark:text-slate-200 mb-1.5">
-                            Nomor WhatsApp <span class="text-xs font-normal text-slate-500">(Kontak Pelapor)</span>
+                            Nomor WhatsApp <span class="text-xs font-normal text-slate-500">(Kontak Pelapor - Opsional)</span>
                         </label>
                         <div class="relative">
                             <i data-lucide="phone" class="w-4 h-4 text-emerald-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
