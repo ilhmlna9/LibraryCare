@@ -103,7 +103,7 @@
                     Nomor WhatsApp <span class="text-rose-500">*</span>
                 </label>
                 <p class="text-[11px] text-slate-400">Kode tiket dan notifikasi pembaruan penanganan otomatis dikirimkan ke nomor WhatsApp ini.</p>
-                <input type="tel" id="gform_visitor_phone" name="visitor_phone" required value="088212093276" placeholder="088212093276"
+                <input type="tel" id="gform_visitor_phone" name="visitor_phone" required placeholder="Contoh: 081234567890"
                     class="w-full pt-2 pb-1 text-sm border-b-2 border-slate-200 dark:border-slate-700 focus:border-purple-600 dark:focus:border-purple-400 bg-transparent text-slate-900 dark:text-white outline-none transition-colors">
             </div>
 

@@ -378,8 +378,8 @@
                         </label>
                         <div class="relative">
                             <i data-lucide="phone" class="w-4 h-4 text-emerald-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
-                            <input type="tel" id="visitor_phone" name="visitor_phone" value="{{ old('visitor_phone', '088212093276') }}"
-                                placeholder="088212093276"
+                            <input type="tel" id="visitor_phone" name="visitor_phone" value="{{ old('visitor_phone') }}"
+                                placeholder="Contoh: 081234567890"
                                 class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-navy-950 text-slate-900 dark:text-white text-xs focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all @error('visitor_phone') border-rose-500 ring-1 ring-rose-500 @enderror">
                         </div>
                         @error('visitor_phone')
