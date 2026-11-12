@@ -315,17 +315,11 @@
                         Apps Script &rarr; Webhook CRM
                     </div>
                 </div>
-                <div class="pt-4 space-y-2">
-                    <a href="{{ route('google-forms.simulate') }}" class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition-colors shadow-sm">
-                        <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
-                        <span>Buka Formulir Google Forms</span>
+                <div class="pt-4">
+                    <a href="{{ $settings['google_forms_url'] ?? 'https://docs.google.com/forms/d/e/1FAIpQLSdEnYHc7Nc5HIEGzTOdJOkVMlbV3bS7DkHlXOvudnl8GKg4wQ/viewform' }}" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition-colors shadow-sm">
+                        <i data-lucide="external-link" class="w-4 h-4"></i>
+                        <span>Buka Google Forms</span>
                     </a>
-                    @if(!empty($settings['google_forms_url']))
-                        <a href="{{ $settings['google_forms_url'] }}" target="_blank" class="w-full inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-xl text-[11px] font-semibold text-purple-400 hover:text-purple-300 hover:bg-slate-950/50 transition-colors">
-                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                            <span>Buka di docs.google.com</span>
-                        </a>
-                    @endif
                 </div>
             </div>
         </div>
