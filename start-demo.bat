@@ -16,10 +16,10 @@ start /b php artisan telegram:poll > nul 2>&1
 echo [3/3] Menjalankan Server Laravel (Port 8000)...
 echo.
 echo ------------------------------------------------------------
-echo  WEBSITE & BOT TELEGRAM SUDAH AKTIF BERSAMAAN!
+echo  WEBSITE DAN BOT TELEGRAM SUDAH AKTIF BERSAMAAN!
 echo  Tutup jendela ini jika ingin mematikan demo.
 echo ------------------------------------------------------------
 echo.
 
-php artisan serve --host=127.0.0.1 --port=8000
+php artisan serve --no-reload --host=127.0.0.1 --port=8000
 pause
