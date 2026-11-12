@@ -74,7 +74,7 @@
 ## 🗄️ 3. Struktur Database
 
 Tabel yang dibuat melalui migrasi resmi Laravel:
-1. `users`: Menyimpan data akun Admin dan Pengunjung (mahasiswa), termasuk `role`, `phone`, dan `telegram_chat_id`.
+1. `users`: Menyimpan data akun Admin dan Pengunjung , termasuk `role`, `phone`, dan `telegram_chat_id`.
 2. `complaint_categories`: Master kategori pengaduan (Fasilitas, Sirkulasi, Koleksi Buku, IT/WiFi, Pelayanan Petugas, dll).
 3. `complaints`: Tabel utama data keluhan dengan nomor tiket unik `LIB-YYYY-XXXX`, status, lampiran, dan kanal sumber.
 4. `complaint_replies`: Percakapan dan tanggapan dua arah antara admin dan pengunjung.
