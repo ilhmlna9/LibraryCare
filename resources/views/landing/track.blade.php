@@ -82,6 +82,35 @@
                         </div>
                     </div>
 
+                    <!-- Banner Ulasan Kepuasan Layanan (Muncul saat Status Selesai / Resolved) -->
+                    @if($complaint->status === 'resolved')
+                        <div class="mt-4 p-4 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 border-2 border-amber-300 dark:border-amber-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-md">
+                                    <i data-lucide="star" class="w-5 h-5 fill-white text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-amber-950 dark:text-amber-100 flex items-center gap-1.5">
+                                        <span>🎉 Laporan Anda Telah Selesai Ditangani!</span>
+                                    </h4>
+                                    <p class="text-xs text-amber-800 dark:text-amber-300 mt-0.5">
+                                        @if($complaint->satisfaction)
+                                            ✅ Anda telah memberikan penilaian: <strong>{{ $complaint->satisfaction->rating }} / 5 Bintang</strong>. Terima kasih atas masukan Anda!
+                                        @else
+                                            Mohon kesediaan Anda memberikan rating bintang dan ulasan kepuasan terhadap layanan petugas kami.
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                            @if(!$complaint->satisfaction)
+                                <a href="#ulasan" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500 hover:bg-amber-600 text-white shadow-md shadow-amber-500/20 transition-all shrink-0 hover:scale-105">
+                                    <i data-lucide="edit-3" class="w-4 h-4"></i>
+                                    <span>Beri Ulasan Sekarang &darr;</span>
+                                </a>
+                            @endif
+                        </div>
+                    @endif
+
                     <!-- Banner Tautkan Notifikasi Telegram Otomatis (Tanpa Perlu Login) -->
                     <div class="mt-4 p-4 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div class="flex items-center gap-3">
@@ -263,7 +292,7 @@
 
                 <!-- Satisfaction Rating Section -->
                 @if($complaint->status === 'resolved')
-                    <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-navy-900 dark:to-navy-950 rounded-2xl p-6 sm:p-8 shadow-md border border-amber-200 dark:border-amber-800/60">
+                    <div id="ulasan" class="scroll-mt-24 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-navy-900 dark:to-navy-950 rounded-2xl p-6 sm:p-8 shadow-md border-2 border-amber-300 dark:border-amber-800/80">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center">
                                 <i data-lucide="star" class="w-5 h-5 fill-white"></i>

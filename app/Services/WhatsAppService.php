@@ -92,7 +92,7 @@ class WhatsAppService
         if ($newStatus === 'resolved') {
             $message .= "\n🎉 *Laporan Anda telah selesai ditangani dengan baik.* Terima kasih banyak atas kesabaran dan kerja sama Anda.\n\n"
                 . "Mohon kesediaan Anda untuk memberikan ulasan serta rating kepuasan layanan di link berikut:\n"
-                . "⭐ {$trackUrl}\n";
+                . "⭐ {$trackUrl}#ulasan\n";
         } else {
             $message .= "\nAnda dapat melihat detail progres laporan kapan saja di:\n{$trackUrl}\n";
         }
