@@ -295,6 +295,11 @@ class IntegrationWebhookController extends Controller
 
     private function handleTelegramCommand(int $chatId, string $text, string $senderName): string
     {
+        // Dapatkan tiket resmi nyata dari database untuk contoh cek status
+        $sampleTicket = Complaint::latest()->value('ticket_number') ?? 'LIB-2026-0001';
+        $myLastTicket = Complaint::where('visitor_telegram', (string)$chatId)->latest()->value('ticket_number');
+        $statusExampleTicket = $myLastTicket ?: $sampleTicket;
+
         if (str_starts_with($text, '/start')) {
             $parts = explode(' ', trim($text));
 
@@ -326,22 +331,22 @@ class IntegrationWebhookController extends Controller
             }
 
             return "Halo *{$senderName}*! 👋\n\n"
-                . "Selamat datang di *Bot Notifikasi & Pengaduan LibraryCare Perpustakaan*.\n\n"
+                . "Selamat datang di *Bot Notifikasi & Pengaduan LibraryCare Perpustakaan Umum*.\n\n"
                 . "🔑 *Chat ID Anda:* `{$chatId}`\n\n"
-                . "📝 *Lapor Langsung via Bot:*\n"
-                . "Ketik perintah `/lapor` dengan format:\n"
-                . "`/lapor Judul Singkat | Rincian keluhan Anda`\n\n"
-                . "Contoh:\n"
-                . "`/lapor Lampu Meja 4 Redup | Lampu belajar di meja baca 4 lantai 1 berkedip.`\n\n"
-                . "🔍 *Cek Status Pengaduan:*\n"
-                . "Ketik `/status NOMOR_TIKET` (contoh: `/status LIB-2026-0001`)\n\n"
-                . "🌐 *Lapor via Website:* Anda juga bisa lapor di website tanpa perlu registrasi/login, dan cukup klik tombol _Hubungkan ke Telegram_ untuk menerima update otomatis.";
+                . "📝 *Format Lapor via Bot:*\n"
+                . "`/lapor [Judul Singkat] | [Rincian Keluhan]`\n\n"
+                . "📌 *Contoh Format (Tekan untuk salin):*\n"
+                . "`/lapor Fasilitas Rusak | AC lantai 2 kurang dingin tolong dicek`\n\n"
+                . "🔍 *Cek Status Tiket:*\n"
+                . "Ketik: `/status {$statusExampleTicket}`\n"
+                . "_(Tekan teks kode tiket asli di atas untuk langsung mencoba mengecek status)_\n\n"
+                . "🌐 *Portal Web:* Anda juga dapat melapor via website di https://librarycare.alwaysdata.net tanpa perlu login.";
         }
 
         if (str_starts_with($text, '/help') || str_starts_with($text, '/bantuan')) {
-            return "📖 *Panduan Bot LibraryCare:*\n\n"
+            return "📖 *PANDUAN BOT LIBRARYCARE:*\n\n"
                 . "• `/lapor Judul | Deskripsi` - Kirim laporan pengaduan baru langsung dari Telegram.\n"
-                . "• `/status NOMOR_TIKET` - Melacak progres tiket pengaduan (contoh: `/status LIB-2026-0001`).\n"
+                . "• `/status {$statusExampleTicket}` - Melacak progres tiket pengaduan.\n"
                 . "• `/start` - Mulai interaksi & mengetahui Chat ID Anda ({$chatId}).";
         }
 
@@ -352,12 +357,19 @@ class IntegrationWebhookController extends Controller
             if (\Illuminate\Support\Facades\Cache::has($debounceKey)) {
                 return '';
             }
-            \Illuminate\Support\Facades\Cache::put($debounceKey, true, now()->addSeconds(15));
-
             $content = trim(substr($text, 6));
+
+            // Jika user hanya menekan shortcut /lapor tanpa parameter judul/deskripsi
             if (empty($content)) {
-                return "⚠️ Format salah. Gunakan:\n`/lapor Judul Laporan | Rincian Keluhan`\n\nContoh:\n`/lapor Kursi Ruang Baca Patah | Kursi kayu di meja 12 sandarannya goyang.`";
+                return "📝 *PANDUAN MEMBUAT LAPORAN BARU*\n\n"
+                    . "Silakan kirimkan laporan Anda dengan format:\n"
+                    . "`/lapor [Judul Singkat] | [Rincian Keluhan]`\n\n"
+                    . "💡 *Contoh Siap Salin (Copy-Paste):*\n"
+                    . "`/lapor AC Lantai 2 Kurang Dingin | Suhu ruangan di meja baca 5 terasa gerah tolong dicek`\n\n"
+                    . "_(Tekan teks contoh di atas untuk menyalin ke kolom chat, lalu ubah sesuai keluhan Anda sebelum dikirim)_";
             }
+
+            \Illuminate\Support\Facades\Cache::put($debounceKey, true, now()->addSeconds(15));
 
             $parts = explode('|', $content);
             $title = trim($parts[0]);
@@ -402,9 +414,33 @@ class IntegrationWebhookController extends Controller
         }
 
         if (str_starts_with($text, '/status')) {
-            $parts = explode(' ', $text);
-            if (count($parts) < 2) {
-                return "⚠️ Format salah. Gunakan: `/status NOMOR_TIKET`\nContoh: `/status LIB-2026-0001`";
+            $parts = explode(' ', trim($text));
+
+            // Jika user hanya menekan shortcut /status tanpa mengetik nomor tiket
+            if (count($parts) < 2 || empty($parts[1])) {
+                $myTickets = Complaint::where('visitor_telegram', (string)$chatId)->latest()->take(3)->get();
+
+                if ($myTickets->isNotEmpty()) {
+                    $reply = "📋 *STATUS TIKET PENGADUAN ANDA:*\n\n";
+                    foreach ($myTickets as $t) {
+                        $st = match ($t->status) {
+                            'pending' => '⏳ Menunggu Peninjauan Petugas',
+                            'processing' => '⚙️ Sedang Diproses',
+                            'resolved' => '✅ Selesai Ditangani',
+                            'rejected' => '❌ Ditolak / Ditutup',
+                            default => ucfirst($t->status),
+                        };
+                        $reply .= "• `{$t->ticket_number}`: *{$t->title}*\n  Status: {$st}\n\n";
+                    }
+                    $reply .= "Ketik `/status NOMOR_TIKET` untuk melihat rincian lengkap tiket tertentu.";
+                    return $reply;
+                }
+
+                return "🔍 *CARA CEK STATUS PENGADUAN*\n\n"
+                    . "Ketik perintah `/status` diikuti nomor tiket resmi Anda.\n\n"
+                    . "📋 *Contoh Tiket Asli Sistem (Tekan untuk coba):*\n"
+                    . "`/status {$sampleTicket}`\n\n"
+                    . "_(Tekan teks kode di atas untuk menyalin & langsung cek tiket di sistem)_";
             }
 
             $ticket = strtoupper(trim($parts[1]));
