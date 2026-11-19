@@ -20,7 +20,7 @@
     </div>
 
     <!-- Integrations Settings Form -->
-    <form action="{{ route('admin.integrations.update') }}" method="POST" class="space-y-6">
+    <form id="main-integrations-form" action="{{ route('admin.integrations.update') }}" method="POST" class="space-y-6">
         @csrf
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -210,22 +210,24 @@
                         <i data-lucide="code" class="w-3.5 h-3.5"></i>
                         <span>Lihat Script & Panduan</span>
                     </button>
-                    <form action="{{ route('admin.integrations.test.google-forms') }}" method="POST">
-                        @csrf
-                        <button type="submit" title="Simulasikan 1 Pengaduan dari Google Forms" class="py-2 px-3 rounded-xl bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 hover:bg-purple-100 text-xs font-semibold">
-                            Uji Post
-                        </button>
-                    </form>
+                    <button type="button" onclick="document.getElementById('form-test-gforms').submit()" title="Simulasikan 1 Pengaduan dari Google Forms" class="py-2 px-3 rounded-xl bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800 hover:bg-purple-100 text-xs font-semibold cursor-pointer">
+                        Uji Post
+                    </button>
                 </div>
             </div>
         </div>
 
         <div class="flex justify-end pt-2">
-            <button type="submit" class="px-6 py-2.5 rounded-xl font-bold text-white bg-slate-900 dark:bg-teal-600 hover:bg-slate-800 dark:hover:bg-teal-700 shadow-md text-xs flex items-center gap-2">
+            <button type="submit" form="main-integrations-form" class="px-6 py-2.5 rounded-xl font-bold text-white bg-slate-900 dark:bg-teal-600 hover:bg-slate-800 dark:hover:bg-teal-700 shadow-md text-xs flex items-center gap-2 cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98]">
                 <i data-lucide="save" class="w-4 h-4"></i>
                 <span>Simpan Semua Perubahan Pengaturan</span>
             </button>
         </div>
+    </form>
+
+    <!-- Hidden standalone form for testing Google Forms without nesting -->
+    <form id="form-test-gforms" action="{{ route('admin.integrations.test.google-forms') }}" method="POST" class="hidden">
+        @csrf
     </form>
 
     <!-- Notification Logs Audit Table -->

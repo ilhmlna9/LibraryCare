@@ -82,33 +82,33 @@ class IntegrationController extends Controller
             'google_forms_simulation_mode' => 'nullable|string|in:true,false',
         ]);
 
-        if (isset($validated['whatsapp_gateway_provider'])) {
-            IntegrationSetting::set('WHATSAPP_GATEWAY_PROVIDER', $validated['whatsapp_gateway_provider']);
+        if ($request->has('whatsapp_gateway_provider')) {
+            IntegrationSetting::set('WHATSAPP_GATEWAY_PROVIDER', $request->input('whatsapp_gateway_provider', 'fonnte'));
         }
-        if (isset($validated['fonnte_token'])) {
-            IntegrationSetting::set('FONNTE_TOKEN', $validated['fonnte_token']);
+        if ($request->has('fonnte_token')) {
+            IntegrationSetting::set('FONNTE_TOKEN', (string) $request->input('fonnte_token', ''));
         }
-        if (isset($validated['whatsapp_phone_number_id'])) {
-            IntegrationSetting::set('WHATSAPP_PHONE_NUMBER_ID', $validated['whatsapp_phone_number_id']);
+        if ($request->has('whatsapp_phone_number_id')) {
+            IntegrationSetting::set('WHATSAPP_PHONE_NUMBER_ID', (string) $request->input('whatsapp_phone_number_id', ''));
         }
-        if (isset($validated['whatsapp_access_token'])) {
-            IntegrationSetting::set('WHATSAPP_ACCESS_TOKEN', $validated['whatsapp_access_token']);
+        if ($request->has('whatsapp_access_token')) {
+            IntegrationSetting::set('WHATSAPP_ACCESS_TOKEN', (string) $request->input('whatsapp_access_token', ''));
         }
         IntegrationSetting::set('WHATSAPP_SIMULATION_MODE', $request->input('whatsapp_simulation_mode', 'false'));
 
-        if (isset($validated['telegram_bot_token'])) {
-            IntegrationSetting::set('TELEGRAM_BOT_TOKEN', $validated['telegram_bot_token']);
+        if ($request->has('telegram_bot_token')) {
+            IntegrationSetting::set('TELEGRAM_BOT_TOKEN', (string) $request->input('telegram_bot_token', ''));
         }
-        if (isset($validated['telegram_admin_chat_id'])) {
-            IntegrationSetting::set('TELEGRAM_ADMIN_CHAT_ID', $validated['telegram_admin_chat_id']);
+        if ($request->has('telegram_admin_chat_id')) {
+            IntegrationSetting::set('TELEGRAM_ADMIN_CHAT_ID', (string) $request->input('telegram_admin_chat_id', ''));
         }
         IntegrationSetting::set('TELEGRAM_SIMULATION_MODE', $request->input('telegram_simulation_mode', 'false'));
 
-        if (isset($validated['google_forms_api_key'])) {
-            IntegrationSetting::set('GOOGLE_FORMS_API_KEY', $validated['google_forms_api_key']);
+        if ($request->has('google_forms_api_key')) {
+            IntegrationSetting::set('GOOGLE_FORMS_API_KEY', (string) $request->input('google_forms_api_key', ''));
         }
-        if (isset($validated['google_forms_url'])) {
-            IntegrationSetting::set('GOOGLE_FORMS_URL', $validated['google_forms_url']);
+        if ($request->has('google_forms_url')) {
+            IntegrationSetting::set('GOOGLE_FORMS_URL', (string) $request->input('google_forms_url', ''));
         }
         IntegrationSetting::set('GOOGLE_FORMS_SIMULATION_MODE', $request->input('google_forms_simulation_mode', 'false'));
 
